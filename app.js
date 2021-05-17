@@ -3,6 +3,11 @@ let attempts = 0;
 let maxAttempts = 25;
 let attempte1 = document.getElementById('attempts');
 let products = [];
+let productimagesNames = [];
+let productsClicks = [];
+let productsViews = [];
+
+
 function Productsimage(productName) {
     
     this.productName =productName.split('.')[0];
@@ -10,6 +15,8 @@ function Productsimage(productName) {
     this.clicks = 0;
     this.views = 0;
     products.push(this);
+    
+   productimagesNames.push(this.productName);
 }
 
 
@@ -39,12 +46,13 @@ function renderimg() {
     centerImgi=randomImage();
     rightImgi = randomImage();
 
-    while (leftImgi === centerImgi || leftImgi === rightImgi || rightImgi===centerImgi) {
+    while (leftImgi === centerImgi || leftImgi === rightImgi || rightImgi ===centerImgi  ){
         leftImgi = randomImage();
         centerImgi=randomImage();
     rightImgi = randomImage();
 
     }
+    
    leftimagee.setAttribute('src',products[leftImgi].source);
    leftimagee.setAttribute('title', products[leftImgi].source);
    products[leftImgi].views++;
@@ -56,7 +64,7 @@ function renderimg() {
    centerimagee.setAttribute('src',products[centerImgi].source);
    centerimagee .setAttribute('title',products[centerImgi].source);
    products[centerImgi].views++;
-
+  
 
     attempte1.textContent = attempts;
     
@@ -88,10 +96,51 @@ function numberclick(event) {
             lie1 = document.createElement('li');
             ule1.appendChild(lie1);
             lie1.textContent = `${products[i].productName} had was seen  ${products[i].views} times and had ${products[i].clicks} vote .`
+           productsClicks.push(products[i].clicks);
+           productsViews.push(products[i].views);
         }
+
        leftimagee.removeEventListener('click', numberclick);
        centerimagee.removeEventListener('click', numberclick);
        
        rightimagee.removeEventListener('click', numberclick);
+       chartRender();
     }
+}
+
+function chartRender() {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels:productimagesNames,
+            datasets: [{
+                label: '# of Clicks',
+                data: productsClicks,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 3
+            }, {
+                label: '# of Views',
+                data: productsViews,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                ],
+                borderColor: [ 'rgba(75, 192, 192, 1)',
+            ],
+            borderWidth: 3
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
 }
