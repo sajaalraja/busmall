@@ -2,7 +2,7 @@
 let attempts = 0;
 let maxAttempts = 25;
 let attempte1 = document.getElementById('attempts');
-let products = [];
+let  products = [];
 let productimagesNames = [];
 let productsClicks = [];
 let productsViews = [];
@@ -15,8 +15,10 @@ function Productsimage(productName) {
     this.clicks = 0;
     this.views = 0;
     products.push(this);
-    
+   
    productimagesNames.push(this.productName);
+  
+   
 }
 
 
@@ -25,6 +27,7 @@ let Productimage= ['bag.jpg' ,  'banana.jpg', 'bathroom.jpg','boots.jpg', 'break
 for (let i = 0; i < Productimage.length; i++) {
     new Productsimage(Productimage[i]);
 }
+
 
 function randomImage() {
     
@@ -71,6 +74,7 @@ function renderimg() {
 }
 renderimg();
 
+
 leftimagee.addEventListener('click', numberclick);
 centerimagee.addEventListener('click',numberclick );
 
@@ -87,9 +91,11 @@ function numberclick(event) {
         }else if (event.target.id === 'rightImage') {
             products[rightImgi].clicks++;}
 
-
+           
         renderimg();
+        
     } else {
+        settingItems() ;
         let ule1 = document.getElementById('submit');
         let lie1;
         for (let i = 0; i < products.length; i++) {
@@ -104,9 +110,29 @@ function numberclick(event) {
        centerimagee.removeEventListener('click', numberclick);
        
        rightimagee.removeEventListener('click', numberclick);
+       
        chartRender();
     }
 }
+
+function settingItems() {
+    let data = JSON.stringify(products);
+    console.log(data);
+    
+    localStorage.setItem('item', data);
+}
+
+function gettingItems() {
+    let stringObj = localStorage.getItem('item');
+    
+    let normalObj = JSON.parse(stringObj);
+    
+    if (normalObj !== null) {
+         products= normalObj;
+    }
+}
+    gettingItems();
+    
 
 function chartRender() {
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -142,5 +168,4 @@ function chartRender() {
             }
         }
     }
-});
-}
+})}
