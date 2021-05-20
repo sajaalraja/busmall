@@ -1,0 +1,52 @@
+body {
+   
+    background-size: cover;
+    background-color: saddlebrown;
+  }
+
+
+  
+  #submit{
+    background-color: #ca9e7b;
+    
+    font-weight: bold;
+    color: rgb(172, 30, 30);
+    width: 300px;
+    overflow: auto;
+  }
+  #leftImage{
+    width:300px;
+    height: 300px;
+    padding-left:150px ;
+   line-height: 50px;
+    float: left;
+}
+#centerImage{
+    width: 300px;
+    height: 300px;
+    line-height: 50px;
+
+}
+#rightImage{
+    width: 300px;
+    height: 300px;
+    line-height: 50px;
+}
+p{
+   color: cyan
+   ; 
+   text-align: center;
+  
+}
+h1{
+    color: cyan
+   ; 
+   text-align: center;
+   
+}
+span{
+    color: cyan
+    ; 
+    text-align: center;
+   
+}
